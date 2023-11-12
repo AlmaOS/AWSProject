@@ -8,18 +8,18 @@ import com.project.RestAppAWS.dto.model.ProfesorData;
 import java.util.*;
 @Service
 public class ProfesorService {
-    private List<ProfesorDTO> profesores = new ArrayList<>();
+    private List<ProfesorDTO> listaProfesores;
 
     public ProfesorService() {
-        this.profesores = new ArrayList<>();
+        this.listaProfesores = new ArrayList<>();
     }
 
-    public List<ProfesorDTO> getProfesores() {
-        return profesores;
+    public List<ProfesorDTO> getListaProfesores() {
+        return listaProfesores;
     }
 
     public ProfesorDTO getProfesorById(int id){
-        for (ProfesorDTO profesor : profesores) {
+        for (ProfesorDTO profesor : listaProfesores) {
             if (profesor.getId() == id) {
                 return profesor;
             }
@@ -30,12 +30,12 @@ public class ProfesorService {
     public ProfesorDTO createProfesor(ProfesorData profesorAux){
         ProfesorDTO nuevoProfesor = new ProfesorDTO(profesorAux.getId(), profesorAux.getNumeroEmpleado(), profesorAux.getNombres(), profesorAux.getApellidos(), profesorAux.getHorasClase());
 
-        profesores.add(nuevoProfesor);
+        listaProfesores.add(nuevoProfesor);
         return nuevoProfesor;
     }
 
     public ProfesorDTO actualizar(int id, ProfesorData profesorAux){
-        Optional<ProfesorDTO> profesorExistente = profesores.stream().filter(a -> a.getId() == id).findFirst();
+        Optional<ProfesorDTO> profesorExistente = listaProfesores.stream().filter(a -> a.getId() == id).findFirst();
         profesorExistente.ifPresent(value -> {
             value.setNumeroEmpleado(profesorAux.getNumeroEmpleado());
             value.setNombres(profesorAux.getNombres());
@@ -46,22 +46,19 @@ public class ProfesorService {
     }
 
     public ProfesorDTO deleteProfesor(int id){
-        ProfesorDTO profesorAEliminar = null;
-        for (ProfesorDTO profesor : profesores) {
+        ProfesorDTO eliminarProfesor = null;
+        for (ProfesorDTO profesor : listaProfesores) {
             if (profesor.getId() == id) {
-                profesorAEliminar = profesor;
+                eliminarProfesor = profesor;
                 break;
             }
         }
 
-        if (profesorAEliminar != null) {
-            profesores.remove(profesorAEliminar);
-            System.out.println("Se ha eliminado al profesor con ID: " + id);
-        } else {
-            System.out.println("No se ha encontrado a ningún profesor con el ID: " + id);
+        if (eliminarProfesor != null) {
+            listaProfesores.remove(eliminarProfesor);
         }
 
-        return profesorAEliminar;
+        return eliminarProfesor;
     }
 
 }

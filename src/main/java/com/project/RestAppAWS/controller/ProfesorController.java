@@ -23,34 +23,37 @@ public class ProfesorController {
 
     @GetMapping("")
     public ResponseEntity<List<ProfesorDTO>> getAllProfesors() {
-        List<ProfesorDTO> profesores = this.profesorService.getProfesores();
+        List<ProfesorDTO> profesores = this.profesorService.getListaProfesores();
         return new ResponseEntity<>(profesores, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfesorDTO> getProfesorById(@PathVariable int id){
-        ProfesorDTO newProfesor = this.profesorService.getProfesorById(id);
-        return new ResponseEntity<>(newProfesor,HttpStatus.OK);
+        ProfesorDTO profesor = this.profesorService.getProfesorById(id);
+        if(profesor == null){
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(profesor,HttpStatus.OK);
     }
 
     @PostMapping
     @Operation(summary = "Create a new student")
     public ResponseEntity<ProfesorDTO> createProfesor(@Valid @RequestBody ProfesorData info){
-        ProfesorDTO newProfesor = this.profesorService.createProfesor(info);
-        return new ResponseEntity<>(newProfesor,HttpStatus.CREATED);
+        ProfesorDTO profesor = this.profesorService.createProfesor(info);
+        return new ResponseEntity<>(profesor,HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProfesorDTO> editProfesorByid(@Valid @RequestBody ProfesorData info, @PathVariable int id){
-        ProfesorDTO newProfesor = this.profesorService.actualizar(id,info);
-        return new ResponseEntity<>(newProfesor,HttpStatus.OK);
+        ProfesorDTO profesor = this.profesorService.actualizar(id,info);
+        return new ResponseEntity<>(profesor,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ProfesorDTO> delete(@PathVariable int id){
-        ProfesorDTO newProfesor = this.profesorService.deleteProfesor(id);
-        if(newProfesor != null){
-            return new ResponseEntity<>(newProfesor,HttpStatus.OK);
+        ProfesorDTO profesor = this.profesorService.deleteProfesor(id);
+        if(profesor != null){
+            return new ResponseEntity<>(profesor,HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

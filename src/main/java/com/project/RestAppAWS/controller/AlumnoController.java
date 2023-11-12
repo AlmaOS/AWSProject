@@ -24,34 +24,37 @@ public class AlumnoController {
 
     @GetMapping("")
     public ResponseEntity<List<AlumnoDTO>> getAllAlumnos() {
-        List<AlumnoDTO> alumnos = this.alumnoService.getAlumnos();
+        List<AlumnoDTO> alumnos = this.alumnoService.getListaAlumnos();
         return new ResponseEntity<>(alumnos, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AlumnoDTO> getAlumnoById(@PathVariable int id){
-        AlumnoDTO newAlumno = this.alumnoService.getAlumnoById(id);
-        return new ResponseEntity<>(newAlumno,HttpStatus.OK);
+        AlumnoDTO alumno = this.alumnoService.getAlumnoById(id);
+        if(alumno == null){
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(alumno,HttpStatus.OK);
     }
 
     @PostMapping
     @Operation(summary = "Create a new student")
     public ResponseEntity<AlumnoDTO> createAlumno(@Valid @RequestBody AlumnoData info){
-        AlumnoDTO newAlumno = this.alumnoService.createAlumno(info);
-        return new ResponseEntity<>(newAlumno,HttpStatus.CREATED);
+        AlumnoDTO alumno = this.alumnoService.createAlumno(info);
+        return new ResponseEntity<>(alumno,HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AlumnoDTO> editAlumnoByid(@Valid @RequestBody AlumnoData info, @PathVariable int id){
-        AlumnoDTO newAlumno = this.alumnoService.actualizar(id,info);
-        return new ResponseEntity<>(newAlumno,HttpStatus.OK);
+        AlumnoDTO alumno = this.alumnoService.actualizar(id,info);
+        return new ResponseEntity<>(alumno,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<AlumnoDTO> delete(@PathVariable int id){
-        AlumnoDTO newAlumno = this.alumnoService.deleteAlumno(id);
-        if(newAlumno != null){
-            return new ResponseEntity<>(newAlumno,HttpStatus.OK);
+        AlumnoDTO alumno = this.alumnoService.deleteAlumno(id);
+        if(alumno != null){
+            return new ResponseEntity<>(alumno,HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

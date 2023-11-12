@@ -8,18 +8,18 @@ import com.project.RestAppAWS.dto.model.AlumnoData;
 import java.util.*;
 @Service
 public class AlumnoService {
-    private List<AlumnoDTO> alumnos = new ArrayList<>();
+    private List<AlumnoDTO> listaAlumnos;
 
     public AlumnoService() {
-        this.alumnos = new ArrayList<>();
+        this.listaAlumnos = new ArrayList<>();
     }
 
-    public List<AlumnoDTO> getAlumnos() {
-        return alumnos;
+    public List<AlumnoDTO> getListaAlumnos() {
+        return listaAlumnos;
     }
 
     public AlumnoDTO getAlumnoById(int id){
-        for (AlumnoDTO alumno : alumnos) {
+        for (AlumnoDTO alumno : listaAlumnos) {
             if (alumno.getId() == id) {
                 return alumno;
             }
@@ -30,12 +30,12 @@ public class AlumnoService {
     public AlumnoDTO createAlumno(AlumnoData alumnoAux){
         AlumnoDTO nuevoAlumno = new AlumnoDTO(alumnoAux.getId(), alumnoAux.getNombres(), alumnoAux.getApellidos(), alumnoAux.getMatricula(), alumnoAux.getPromedio());
 
-        alumnos.add(nuevoAlumno);
+        listaAlumnos.add(nuevoAlumno);
         return nuevoAlumno;
     }
 
     public AlumnoDTO actualizar(int id, AlumnoData alumnoAux){
-        Optional<AlumnoDTO> alumnoExistente = alumnos.stream().filter(a -> a.getId() == id).findFirst();
+        Optional<AlumnoDTO> alumnoExistente = listaAlumnos.stream().filter(a -> a.getId() == id).findFirst();
         alumnoExistente.ifPresent(value -> {
             value.setNombres(alumnoAux.getNombres());
             value.setApellidos(alumnoAux.getApellidos());
@@ -45,22 +45,19 @@ public class AlumnoService {
         return alumnoExistente.orElse(null);    }
 
     public AlumnoDTO deleteAlumno(int id){
-        AlumnoDTO alumnoAEliminar = null;
-        for (AlumnoDTO alumno : alumnos) {
+        AlumnoDTO eliminarAlumno = null;
+        for (AlumnoDTO alumno : listaAlumnos) {
             if (alumno.getId() == id) {
-                alumnoAEliminar = alumno;
+                eliminarAlumno = alumno;
                 break;
             }
         }
 
-        if (alumnoAEliminar != null) {
-            alumnos.remove(alumnoAEliminar);
-            System.out.println("Se ha eliminado al alumno con ID: " + id);
-        } else {
-            System.out.println("No se ha encontrado a ningún alumno con el ID: " + id);
+        if (eliminarAlumno != null) {
+            listaAlumnos.remove(eliminarAlumno);
         }
 
-        return alumnoAEliminar;
+        return eliminarAlumno;
     }
 
 }
