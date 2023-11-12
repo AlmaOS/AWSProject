@@ -37,7 +37,7 @@ public class ProfesorController {
     @Operation(summary = "Create a new student")
     public ResponseEntity<ProfesorDTO> createProfesor(@Valid @RequestBody ProfesorData info){
         ProfesorDTO newProfesor = this.profesorService.createProfesor(info);
-        return new ResponseEntity<>(newProfesor,HttpStatus.OK);
+        return new ResponseEntity<>(newProfesor,HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -49,7 +49,11 @@ public class ProfesorController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ProfesorDTO> delete(@PathVariable int id){
         ProfesorDTO newProfesor = this.profesorService.deleteProfesor(id);
-        return new ResponseEntity<>(newProfesor,HttpStatus.OK);
+        if(newProfesor != null){
+            return new ResponseEntity<>(newProfesor,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

@@ -42,23 +42,22 @@ public class AlumnoService {
             value.setMatricula(alumnoAux.getMatricula());
             value.setPromedio(alumnoAux.getPromedio());
         });
-        return null;
-    }
+        return alumnoExistente.orElse(null);    }
 
     public AlumnoDTO deleteAlumno(int id){
         AlumnoDTO alumnoAEliminar = null;
         for (AlumnoDTO alumno : alumnos) {
             if (alumno.getId() == id) {
                 alumnoAEliminar = alumno;
-                break; //
+                break;
             }
         }
 
         if (alumnoAEliminar != null) {
             alumnos.remove(alumnoAEliminar);
-            System.out.println("Alumno con ID " + id + " eliminado correctamente.");
+            System.out.println("Se ha eliminado al alumno con ID: " + id);
         } else {
-            System.out.println("No se encontró ningún alumno con el ID: " + id);
+            System.out.println("No se ha encontrado a ningún alumno con el ID: " + id);
         }
 
         return alumnoAEliminar;

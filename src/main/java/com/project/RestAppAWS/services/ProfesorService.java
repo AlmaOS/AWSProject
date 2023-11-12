@@ -42,7 +42,7 @@ public class ProfesorService {
             value.setApellidos(profesorAux.getApellidos());
             value.setHorasClase(profesorAux.getHorasClase());
         });
-        return null;
+        return profesorExistente.orElse(null);
     }
 
     public ProfesorDTO deleteProfesor(int id){
@@ -56,9 +56,9 @@ public class ProfesorService {
 
         if (profesorAEliminar != null) {
             profesores.remove(profesorAEliminar);
-            System.out.println("Profesor con ID " + id + " eliminado correctamente.");
+            System.out.println("Se ha eliminado al profesor con ID: " + id);
         } else {
-            System.out.println("No se encontró ningún profesor con el ID: " + id);
+            System.out.println("No se ha encontrado a ningún profesor con el ID: " + id);
         }
 
         return profesorAEliminar;

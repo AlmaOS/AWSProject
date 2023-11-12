@@ -38,7 +38,7 @@ public class AlumnoController {
     @Operation(summary = "Create a new student")
     public ResponseEntity<AlumnoDTO> createAlumno(@Valid @RequestBody AlumnoData info){
         AlumnoDTO newAlumno = this.alumnoService.createAlumno(info);
-        return new ResponseEntity<>(newAlumno,HttpStatus.OK);
+        return new ResponseEntity<>(newAlumno,HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -50,7 +50,11 @@ public class AlumnoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<AlumnoDTO> delete(@PathVariable int id){
         AlumnoDTO newAlumno = this.alumnoService.deleteAlumno(id);
-        return new ResponseEntity<>(newAlumno,HttpStatus.OK);
+        if(newAlumno != null){
+            return new ResponseEntity<>(newAlumno,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
