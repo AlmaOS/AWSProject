@@ -8,6 +8,6 @@ public class AlumnoDTO {
     private int id;
     private String nombres;
     private String apellidos;
-    private int matricula;
+    private String matricula;
     private  double promedio;
 }
