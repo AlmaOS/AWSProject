@@ -17,5 +17,7 @@ public class AlumnoData {
     private String matricula;
     @DecimalMin(value = "0.0", inclusive = true, message = "Error: Ingresar un valor mayor a 0")
     @DecimalMax(value = "100.0", inclusive = true, message = "Error: Ingresar un valor menor o igual a 100")
-    private  double promedio;
+    private double promedio;
+    private String fotoPerfilUrl;
+    private String password;
 }

@@ -18,5 +18,5 @@ public class ProfesorData {
     @NotBlank
     private String apellidos;
     @Positive(message = "Error: Ingresar un valor mayor a 0")
-    private  int horasClase;
+    private int horasClase;
 }

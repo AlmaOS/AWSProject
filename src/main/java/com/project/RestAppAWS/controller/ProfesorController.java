@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class ProfesorController {
 
     @GetMapping("")
     public ResponseEntity<List<ProfesorDTO>> getAllProfesors() {
-        List<ProfesorDTO> profesores = this.profesorService.getListaProfesores();
+        List<ProfesorDTO> profesores = this.profesorService.getProfesores();
         return new ResponseEntity<>(profesores, HttpStatus.OK);
     }
 
@@ -37,7 +38,7 @@ public class ProfesorController {
     }
 
     @PostMapping
-    @Operation(summary = "Create a new student")
+    @Operation(summary = "Crear nuevo profesor")
     public ResponseEntity<ProfesorDTO> createProfesor(@Valid @RequestBody ProfesorData info){
         ProfesorDTO profesor = this.profesorService.createProfesor(info);
         return new ResponseEntity<>(profesor,HttpStatus.CREATED);
