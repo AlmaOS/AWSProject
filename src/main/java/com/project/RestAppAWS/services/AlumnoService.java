@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.*;
 @Service
 public class AlumnoService {
-    private List<AlumnoDTO> listaAlumnos;
     private RepositoryAlumnos repositoryAlumnos;
     private RepositorySNS repositorySNS;
     private RepositorySesiones repositorySesiones;
@@ -41,8 +40,7 @@ public class AlumnoService {
     }
 
     public AlumnoDTO getAlumnoById(int id){
-        Optional<AlumnoEntity> alumno = repositoryAlumnos
-                .findById(id);
+        Optional<AlumnoEntity> alumno = repositoryAlumnos.findById(id);
         return alumno.map(AlumnoDTO::getSchemaDB).orElse(null);
     }
 

@@ -31,11 +31,11 @@ public class AlumnoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AlumnoDTO> getAlumnoById(@PathVariable int id){
-        AlumnoDTO alumno = this.alumnoService.getAlumnoById(id);
-        if(alumno == null){
+        AlumnoDTO nuevoAlumno = this.alumnoService.getAlumnoById(id);
+        if(nuevoAlumno == null){
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(alumno,HttpStatus.OK);
+        return new ResponseEntity<>(nuevoAlumno,HttpStatus.OK);
     }
 
     @PostMapping

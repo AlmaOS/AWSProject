@@ -24,7 +24,7 @@ public class AlumnoEntity {
     @Column(name = "promedio", nullable = false)
     private double promedio;
 
-    @Column(name = "fotoPerfilUrl", nullable = false)
+    @Column(name = "fotoPerfilUrl")
     private String fotoPerfilUrl;
 
     @Column(name = "password", nullable = false)
